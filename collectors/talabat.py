@@ -5,7 +5,7 @@ from typing import Any
 import httpx
 
 from collectors.base import BaseCollector
-from models import CollectionResult, Item
+from models import CollectionResult, Item, MenuItem
 
 NEXT_DATA_PATTERN = re.compile(
     r'<script id="__NEXT_DATA__" type="application/json">(.*?)</script>',
@@ -90,6 +90,23 @@ class TalabatCollector(BaseCollector):
             Item(name=item_name, price_aed=_find_item_price(menu_items, item_name))
             for item_name in items
         ]
+        full_menu = [
+            MenuItem(
+                name=menu_item.get("name", ""),
+                price_aed=_parse_float(menu_item.get("price")),
+                category=menu_item.get("sectionName"),
+                available=(
+                    not menu_item["isOos"]
+                    if "isOos" in menu_item
+                    else None
+                ),
+                platform_item_id=(
+                    str(menu_item["id"]) if menu_item.get("id") is not None else None
+                ),
+            )
+            for menu_item in menu_items
+            if menu_item.get("name")
+        ]
 
         delivery_fee = _parse_float(restaurant_data.get("deliveryFee"))
         discount_text = (restaurant_data.get("discountText") or "").strip()
@@ -107,6 +124,7 @@ class TalabatCollector(BaseCollector):
             location=restaurant_data.get("areaName") or location,
             rating=_parse_float(restaurant_data.get("rate")),
             items=collected_items,
+            menu_items=full_menu,
             delivery_fee_aed=delivery_fee,
             service_fee_aed=None,  # Only shown at checkout, not on menu page
             discount_aed=discount,

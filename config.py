@@ -1,22 +1,15 @@
-PLATFORM = "Talabat"
+from configurations import get_default_configuration
 
-COUNTRY = "UAE"
 
-CITY = "Dubai"
+DEFAULT_CONFIGURATION = get_default_configuration()
 
-RESTAURANT = "McDonald's"
-
-LOCATION = "Dubai Media City"
-
-RESTAURANT_URL = (
-    "https://www.talabat.com/uae/restaurant/699079/mcdonalds-media-city?aid=1213"
-)
-
-ITEMS = [
-    "McChicken Medium Meal",
-    "Spicy McChicken Medium Meal",
-    "Large Fries",
-]
+PLATFORM = DEFAULT_CONFIGURATION.platform
+COUNTRY = DEFAULT_CONFIGURATION.country
+CITY = DEFAULT_CONFIGURATION.city
+RESTAURANT = DEFAULT_CONFIGURATION.restaurant
+LOCATION = DEFAULT_CONFIGURATION.location
+RESTAURANT_URL = DEFAULT_CONFIGURATION.url
+ITEMS = list(DEFAULT_CONFIGURATION.items)
 
 # Directory for JSON backup files (created automatically if missing)
 OUTPUT_DIR = "output"
