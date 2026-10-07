@@ -28,6 +28,10 @@ _MARKETS: dict[str, dict[str, Any]] = {
             "Saravanaa Bhavan",
             "The Cheesecake Factory",
             "Wagamama",
+            "Nando's",
+            "Laffah",
+            "Zaatar w Zeit",
+            "Jazeel",
         ],
         "platforms": ["Talabat", "Deliveroo", "Noon Food"],
     },
@@ -243,6 +247,174 @@ _VERIFIED_CONFIGURATIONS: dict[tuple[str, str, str, str], dict[str, Any]] = {
             "BAO PLATTER",
         ),
     },
+    ("talabat", "uae", "dubai", "nando's"): {
+        "url": "https://www.talabat.com/uae/restaurant/684257/nandos-dubai-silicon-oasis?aid=1277",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "1/4 Chicken + 1 Regular Side",
+            "Chicken Livers & a Portuguese Roll",
+            "1/2 Chicken + 2 Regular Sides",
+            "1/2 Chicken + 1 Regular Side",
+            "Grilled Chicken Strips & Spicy Rice + 1 Regular Side",
+            "Chicken Butterfly + 2 Regular Sides",
+            "PERi-Crackle Avo Burger + 1 Regular Side",
+            "NEW Saucy 3 Chicken Wings",
+        ),
+    },
+    ("noon food", "uae", "dubai", "nando's"): {
+        "url": "https://food.noon.com/uae-en/outlet/NNDSE0R3DU/",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "1/4 Chicken + 1 Regular Side",
+            "Chicken Livers & a Portuguese Roll",
+            "1/2 Chicken + 2 Regular Sides",
+            "1/2 Chicken + 1 Regular Side",
+            "Grilled Chicken Strips & Spicy Rice + 1 Regular Side",
+            "Chicken Butterfly + 2 Regular Sides",
+            "PERi-Crackle Avo Burger + 1 Regular Side",
+            "NEW Saucy 3 Chicken Wings",
+        ),
+    },
+    ("talabat", "uae", "dubai", "laffah"): {
+        "url": "https://www.talabat.com/uae/restaurant/762630/laffah-dso?aid=1277",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Small chicken shawarma SAJ",
+            "Grilled Chicken Half",
+            "Small Garlic",
+            "Big chicken shawarma SAJ",
+            "Chicken Arabic Meal SAJ",
+            "Slices potato",
+            "Mix meal",
+            "Value meal",
+        ),
+    },
+    ("noon food", "uae", "dubai", "laffah"): {
+        "url": "https://food.noon.com/uae-en/outlet/LFFHI8LCTW/",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Small chicken shawarma SAJ",
+            "Grilled Chicken Half",
+            "Small Garlic",
+            "Big chicken shawarma SAJ",
+            "Chicken Arabic Meal SAJ",
+            "Slices potato",
+            "Mix meal",
+            "Value meal",
+        ),
+    },
+    ("talabat", "uae", "dubai", "zaatar w zeit"): {
+        "url": "https://www.talabat.com/uae/restaurant/726762/zaatar-w-zeit-by-robots-dso?aid=1277",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Zaatar",
+            "Wild Zaatar",
+            "Lahmeh Bi Ajine",
+            "Kashkawan",
+            "Halloumi",
+            "Zaatar & Labneh",
+            "Zaatar & Cheese",
+            "Jebneh",
+        ),
+    },
+    ("noon food", "uae", "dubai", "zaatar w zeit"): {
+        "url": "https://food.noon.com/uae-en/outlet/ZTRWZTKHT2/",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Zaatar",
+            "Wild Zaatar",
+            "Lahmeh Bi Ajine",
+            "Kashkawan",
+            "Halloumi",
+            "Zaatar & Labneh",
+            "Zaatar & Cheese",
+            "Jebneh",
+        ),
+    },
+    ("talabat", "uae", "dubai", "jazeel"): {
+        "url": "https://www.talabat.com/uae/restaurant/622958/jazeel-restaurant-cafe?aid=1277",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Grilled chicken 800g",
+            "Boneless Chicken",
+            "Fattoush",
+            "Muttabal Jazeel",
+            "Mix Grill - 1 Kilo",
+            "Jazeel Mix Grill - 1 Kilo",
+            "Lentil Soup",
+            "Vegetable Soup",
+        ),
+    },
+    ("noon food", "uae", "dubai", "jazeel"): {
+        "url": "https://food.noon.com/uae-en/outlet/JZLRST1RPF/",
+        "location": "Dubai Silicon Oasis",
+        "items": (
+            "Grilled chicken 800g",
+            "Boneless Chicken",
+            "Fattoush",
+            "Muttabal Jazeel",
+            "Mix Grill - 1 Kilo",
+            "Jazeel Mix Grill - 1 Kilo",
+            "Lentil Soup",
+            "Vegetable Soup",
+        ),
+    },
+}
+
+
+_ADDITIONAL_VERIFIED_CONFIGURATIONS: dict[tuple[str, str, str, str, str], dict[str, Any]] = {
+    ("Talabat", "UAE", "Dubai", "McDonald's", "Dubai Silicon Oasis"): {
+        "url": "https://www.talabat.com/uae/restaurant/742270/mcdonalds-dso?aid=1277",
+        "items": (
+            "McChicken Medium Meal",
+            "Spicy McChicken Medium Meal",
+            "Happy Meal 4pcs Chicken McNuggets with Fries",
+            "Happy Meal Chickenburger with Fries",
+            "9 pcs Chicken McNuggets",
+            "Large Fries",
+            "McCrispy Deluxe",
+            "McCrispy Deluxe Large Meal",
+        ),
+    },
+    ("Talabat", "UAE", "Dubai", "McDonald's", "Deira"): {
+        "url": "https://www.talabat.com/uae/restaurant/759989/mcdonalds-al-ghurair-extension?aid=1277",
+        "items": (
+            "McChicken Medium Meal",
+            "Happy Meal Chickenburger with Fries",
+            "Happy Meal 4pcs Chicken McNuggets with Fries",
+            "Double Cheeseburger Medium Meal",
+            "Big Tasty Medium Meal",
+            "Big Tasty Large Meal",
+            "McCrispy Deluxe",
+            "McCrispy Deluxe Large Meal",
+        ),
+    },
+    ("Noon Food", "UAE", "Dubai", "McDonald's", "Deira"): {
+        "url": "https://food.noon.com/uae-en/outlet/MCDNLDB619/",
+        "items": (
+            "McChicken Medium Meal",
+            "Happy Meal Chickenburger with Fries",
+            "Happy Meal 4pcs Chicken McNuggets with Fries",
+            "Double Cheeseburger Medium Meal",
+            "Big Tasty Medium Meal",
+            "Big Tasty Large Meal",
+            "McCrispy Deluxe",
+            "McCrispy Deluxe Large Meal",
+        ),
+    },
+    ("Noon Food", "UAE", "Dubai", "Subway", "Dubai Silicon Oasis"): {
+        "url": "https://food.noon.com/uae-en/outlet/SBWYWFS5OX/",
+        "items": (
+            "Italian B.M.T 6 Inch Meal",
+            "Chicken Teriyaki 6 Inch Meal",
+            "Oven Roasted Chicken 6 Inch Meal",
+            "Tuna 6 Inch Meal",
+            "Steak And Cheese 6 Inch Meal",
+            "Peri Peri Chicken 6 Inch Meal",
+            "Sub Halloumi 6 Inch Meal",
+            "Spicy Mexican 6 Inch Meal",
+        ),
+    },
 }
 
 
@@ -266,6 +438,16 @@ def _build_catalog() -> tuple[CollectionConfiguration, ...]:
                     {},
                 ))
                 configurations.append(CollectionConfiguration(**values))
+    for key, verified in _ADDITIONAL_VERIFIED_CONFIGURATIONS.items():
+        platform, country, city, restaurant, location = key
+        configurations.append(CollectionConfiguration(
+            platform=platform,
+            country=country,
+            city=city,
+            restaurant=restaurant,
+            location=location,
+            **verified,
+        ))
     return tuple(configurations)
 
 
@@ -287,6 +469,7 @@ def find_configuration(
     country: str,
     city: str,
     restaurant: str,
+    location: str | None = None,
 ) -> CollectionConfiguration:
     target = _key(platform, country, city, restaurant)
     for configuration in CONFIGURATION_CATALOG:
@@ -295,11 +478,15 @@ def find_configuration(
             configuration.country,
             configuration.city,
             configuration.restaurant,
-        ) == target:
+        ) == target and (
+            location is None
+            or _key(configuration.location or "") == _key(location)
+        ):
             return configuration
     raise ValueError(
         "No configuration found for "
         f"{platform}/{country}/{city}/{restaurant}"
+        + (f"/{location}" if location else "")
     )
 
 
@@ -354,12 +541,14 @@ def get_configuration(
     country: str,
     city: str,
     restaurant: str,
+    location: str | None = None,
 ) -> CollectionConfiguration:
     configuration = find_configuration(
         platform=platform,
         country=country,
         city=city,
         restaurant=restaurant,
+        location=location,
     )
     if not is_executable(configuration):
         raise ValueError(

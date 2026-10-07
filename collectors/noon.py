@@ -22,6 +22,7 @@ ZONE_COORDINATES = {
     "discovery gardens": (25.0352571, 55.1454134),
     "al karama": (25.242223, 55.305696),
     "karama": (25.242223, 55.305696),
+    "deira": (25.268894702878118, 55.3168781711636),
 }
 HEADERS = {
     "User-Agent": "Mozilla/5.0",
@@ -72,6 +73,25 @@ def _zone_from_location(location: str) -> str:
     raise RuntimeError(f"No Noon public coordinates configured for location '{location}'")
 
 
+def _address_matches_location(address: str | None, location: str) -> bool:
+    if not address:
+        return False
+    normalized_location = _normalize_name(location)
+    if normalized_location.startswith("al "):
+        normalized_location = normalized_location[3:]
+    if not normalized_location:
+        return False
+    if re.search(
+        rf"\b{re.escape(normalized_location)}\b",
+        _normalize_name(address),
+    ):
+        return True
+    aliases = {
+        "dubai silicon oasis": ("واحة دبي السيليكون",),
+    }
+    return any(alias in address for alias in aliases.get(normalized_location, ()))
+
+
 def _get_guest_data(outlet_code: str, latitude: float, longitude: float) -> dict[str, Any]:
     body = {
         "addressLat": round(latitude * PRECISION),
@@ -101,7 +121,7 @@ def _get_guest_data(outlet_code: str, latitude: float, longitude: float) -> dict
     raise RuntimeError(f"Noon guest restaurant request failed: {last_error}")
 
 
-def _get_catalog(zone: str, outlet_code: str) -> dict[str, Any]:
+def _get_catalog(zone: str, outlet_code: str) -> dict[str, Any] | None:
     url = CATALOG_ENDPOINT.format(zone=zone.replace(" ", "%20"))
     catalog_headers = {
         key: value for key, value in HEADERS.items() if key != "Content-Type"
@@ -122,9 +142,7 @@ def _get_catalog(zone: str, outlet_code: str) -> dict[str, Any]:
                 None,
             )
             if record is None:
-                raise RuntimeError(
-                    "Configured Noon outlet was not found in the public catalog"
-                )
+                return None
             return record
         except (httpx.HTTPError, RuntimeError) as exc:
             last_error = exc
@@ -150,6 +168,13 @@ class NoonCollector(BaseCollector):
         catalog_record = _get_catalog(zone, outlet_code)
 
         data = _get_guest_data(outlet_code, latitude, longitude)
+        if catalog_record is None and (
+            _normalize_name(data.get("name") or "") != _normalize_name(restaurant)
+            or not _address_matches_location(data.get("address"), location)
+        ):
+            raise RuntimeError(
+                "Noon guest restaurant did not match the requested restaurant and location"
+            )
 
         menu_items = data.get("menu", {}).get("items", [])
         categories = {
@@ -194,7 +219,7 @@ class NoonCollector(BaseCollector):
             platform=platform,
             country=country,
             city=city,
-            restaurant=data.get("name") or catalog_record.get("name") or restaurant,
+            restaurant=data.get("name") or (catalog_record or {}).get("name") or restaurant,
             location=data.get("address") or location,
             rating=data.get("ratingScore"),
             items=collected_items,
@@ -202,7 +227,9 @@ class NoonCollector(BaseCollector):
             delivery_fee_aed=data.get("deliveryFee"),
             service_fee_aed=None,
             discount_aed=float(flat_discounts[0]) if flat_discounts else None,
-            eta_minutes=str(data["minutesToDeliver"])
-            if data.get("minutesToDeliver") is not None
-            else catalog_record.get("delivery", {}).get("time"),
+            eta_minutes=(
+                str(data["minutesToDeliver"])
+                if data.get("minutesToDeliver") is not None
+                else (catalog_record or {}).get("delivery", {}).get("time")
+            ),
         )
